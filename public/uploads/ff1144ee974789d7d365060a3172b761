@@ -1,0 +1,24 @@
+%include "io.inc"
+
+section .text
+global main
+main:
+    GET_UDEC 4, ebx
+
+    mov esi, 8
+    xor ecx, ecx
+cycle1:
+    inc ecx
+    xor edx, edx
+    div esi
+    push edx
+    test eax, eax
+    jnz cycle1   
+    mov ecx, 10
+cycle2:
+    pop eax
+    PRINT_UDEC 1, al
+    loop cycle2
+     
+    xor eax, eax
+    ret
