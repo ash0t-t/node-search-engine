@@ -2,11 +2,11 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const DEFAULT_PORT_NUMBER = 3000;
-const DEFAULT_URL = "mongodb://localhost:27017";
+const DEFAULT_URI = "mongodb://localhost:27017";
 const PORT = process.env.PORT || DEFAULT_PORT_NUMBER;
-const URL = process.env.URL || DEFAULT_URL;
+const URI = process.env.URI || DEFAULT_URI;
 const { MongoClient } = require("mongodb");
-const client = new MongoClient(URL);
+const client = new MongoClient(URI);
 const multer = require("multer");
 const upload = multer({ dest: "public/uploads" });
 const fs = require("fs");
@@ -38,7 +38,7 @@ app.post("/upload", upload.single("textfile"), async (req, res) => {
   const fileContents = fs.readFileSync(req.file.path, "utf-8");
   console.log(req.file);
   console.log(fileContents);
-  res.send("yes");
+  res.send("Completed!");
 });
 
 app.listen(PORT, () => {
